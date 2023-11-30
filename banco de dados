@@ -1,0 +1,57 @@
+
+create database recebimento;
+use recebimento;
+
+CREATE TABLE fornecedores (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(100),
+  empresa VARCHAR(200),
+  telefone VARCHAR(25)
+);
+
+insert into fornecedores (id, nome, empresa, telefone) values (default, 'Carlos Almeida', 'Coca-Cola', '43-9915551'), (default, 'Fernando Nobrega', 'Pepsi', '43-889584');
+select * from fornecedores;
+update fornecedores set empresa='Fanta' where id=2;
+delete from fornecedores where id=2;
+
+
+CREATE TABLE produtos (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(100),
+  descricao varchar(100),
+  preco DECIMAL(10, 2)
+);
+
+insert into produtos (id,nome,descricao,preco) values (default, 'refrigerante', ' 2 Litros', 8), (default, 'refrigirante', '500 ml', 5);
+select nome from produtos where id=2;
+select* from produtos;
+update produtos set preco= 10 where id=1;
+delete from produtos where id=1;
+
+CREATE TABLE funcionarios (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(100),
+  cargo VARCHAR(50)
+);
+
+insert into funcionarios (id, nome, cargo) values (default, 'Maria Clara', 'Auxiliar de recebimento'), (default, 'Edson Silva', 'auxiliar recebimento');
+select * from funcionarios;
+update funcionarios set cargo='Chefe recebimento' where id=1;
+delete from funcionarios where id=1;
+
+CREATE TABLE cargas (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  fornecedor_id INT,
+  produto_id INT,
+  quantidade INT,
+  data_recebimento DATE,
+  funcionarios_id int,
+  FOREIGN KEY (fornecedor_id) REFERENCES fornecedores(id),
+  FOREIGN KEY (produto_id) REFERENCES produtos(id),
+  FOREIGN KEY (funcionarios_id) REFERENCES funcionarios(id)
+);
+
+insert into cargas (id, fornecedor_id, produto_id, quantidade, data_recebimento, funcionarios_id) values (default, 1, 2, 10, '30-11-23',2);
+select * from cargas;
+update cargas set quantidade=22 where id=1;
+delete from cargas where id=1;
